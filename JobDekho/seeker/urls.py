@@ -1,0 +1,46 @@
+from django.urls import *
+from .views import *
+
+app_name = "Seeker"
+
+urlpatterns = [
+    path('',index,name="index"),
+    path('seeker_reg/',Seeker_Reg, name = "seeker_reg"),
+    path('seeker_verify/',Seeker_Verify_Email, name = "seeker_verify_mail"),
+    path('seeker_verify_mail/',Seeker_Sent_Mail, name = "seeker_verify_email_sent"),
+    path('seeker_login/',Seeker_Login, name = "seeker_login"),
+    path('seeker_profile/',Seeker_Profile, name = "seeker_profile"),
+    path('seeker_forgotpassword',Seeker_ForgotPassword,name="seeker_forgotpw"),
+    path('seeker_otpverify/',Seeker_OtpVerify,name="seeker_otpverify"),
+    path('seeker_resetpw/',Seeker_ResetPassword,name="seeker_resetpw"),
+    path('Seeker_set_password/',Seeker_set_password,name="Seeker_set_password"),
+    path('seeker_logout/',Seeker_Logout, name = 'seeker_logout'),
+    path('seeker_job_profile/',seeker_job_profile,name="seeker_job_profile"),
+    path("resume/",Seeker_Resume,name="resume"),
+    path("certificate/",Seeker_Certificate,name="certificate"),
+    path("education/",Seeker_Education,name="education"),
+    path("headline/",Seeker_Headline,name="headline"),
+    path("project/",Seeker_Project,name="project"),
+    path("skills/",Seeker_Skills,name="skills"),
+    path("social/",Seeker_Social,name="social"),
+    path("summary",Seeker_Summary,name="summary"),
+    path('seeker_viewjob/<int:job_id>/',seeker_viewjob,name="seeker_viewjob"),
+    path("apply_job/<int:job_id>/",apply_job,name="apply_job"),
+    path("applied_jobs/",applied_jobs,name="applied_jobs"),
+    path('job_search/',job_search,name="job_search"),
+    path('search_cat/<int:category_id>/',search_cat,name="search_cat"),
+    path('search_cat_city/<int:category_id>/',search_cat_city,name="search_cat_city"),
+    path('contact/',contact,name="contact"),
+    path('aboutus/',aboutus,name='aboutus'),
+    path('myresume/',MyResume,name="MyResume"),
+    path('newsletter/', newsletter_view, name='newsletter'),
+    path('delete_Resume/',delete_Resume,name="delete_Resume"),
+    path('delete_Headline/',delete_Headline,name="delete_Headline"),
+    path('delete_Summary/',delete_Summary,name="delete_Summary"),
+    path('delete_Education/',delete_Education,name="delete_Education"),
+    path('delete_Project/',delete_Project,name="delete_Project"),
+    path('delete_Certificate/',delete_Certificate,name="delete_Certificate"),
+    path('delete_Social/',delete_Social,name="delete_Social"),
+    path('delete_Skills/',delete_Skills,name="delete_Skills"),
+
+]

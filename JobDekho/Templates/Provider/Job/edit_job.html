@@ -1,0 +1,128 @@
+{% extends 'common_provider.html' %} {% load static %} {% block content %}
+<!-- ======================= Page Title ===================== -->
+<div class="page-title">
+	<div class="container">
+		<div class="page-caption">
+			<h2>Edit Job</h2>
+			<p>
+				<a href="#" title="Home">Home</a>
+				<i class="ti-angle-double-right"></i>Edit Post
+			</p>
+		</div>
+	</div>
+</div>
+<!-- ======================= End Page Title ===================== -->
+<!-- ================ Profile Settings ======================= -->
+<form method="POST" enctype="multipart/form-data" novalidate> {% csrf_token %} {{ job_form.non_field_errors }}
+	<section class="padd-top-80 padd-bot-80">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<div id="leftcol_item">
+						<div class="user_dashboard_pic"> {% if not img %} <img alt="user photo" src="/img/user-profile.png"> {% else %} <img alt="user photo" src="{{img}}"> {% endif %} </div>
+					</div>
+					<div class="dashboard_nav_item">
+						<ul>
+                            <li >
+								<a href="{% url 'Provider:provider_profile' %}">
+									<i class="login-icon ti-user"></i> User Profile </a>
+							</li>
+
+							<li class="active">
+								<a href="{% url 'Provider:post_job' %}">
+									<i class="login-icon ti-layout-cta-btn-right"></i> Post Jobs </a>
+							</li>
+							<li>
+								<a href="{% url 'Provider:managejobs' %}">
+									<i class="login-icon ti-menu-alt"></i> Manage Jobs </a>
+							</li>
+							<li>
+								<a href="{% url 'Provider:all_applicants_list' %}">
+									<i class="login-icon fa fa-users"></i> Applied Applicants </a>
+							</li>
+							<li>
+								<a href="{% url 'Provider:provider_set_password' %}">
+									<i class="login-icon ti-key"></i> Change Password </a>
+							</li>
+							<li>
+								<a href="{% url 'Provider:provider_logout' %}">
+									<i class="login-icon ti-power-off"></i> Logout </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<center> {% if messages %} {% for message in messages %} <span {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{message}}</span> {% endfor %} <br>
+					<br> {% endif %}
+				</center>
+				<div class="col-md-9">
+					<div class="profile_detail_block">
+						<h3 style="text-align:center"> Post Job </h3>
+						<hr>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.title.label_tag }}</label>
+								{{ job_form.title }}
+								<span class="errorlist">{{ job_form.title.errors }}</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.category.label_tag }}</label>
+								{{ job_form.category }}
+								<span class="errorlist">{{ job_form.category.errors }}</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.location.label_tag }}</label>
+								{{ job_form.location }}
+								<span class="errorlist">{{ job_form.location.errors }}</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.experience_years.label_tag }}</label>
+								{{ job_form.experience_years }}
+								<span class="errorlist">{{ job_form.experience_years.errors }}</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.salary_min.label_tag }}</label>
+								{{ job_form.salary_min }}
+								<span class="errorlist">{{ job_form.salary_min.errors }}</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.salary_max.label_tag }}</label>
+								{{ job_form.salary_max }}
+								<span class="errorlist">{{ job_form.salary_max.errors }}</span>
+							</div>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.skills_required.label_tag }}</label>
+								{{ job_form.skills_required }}
+								<span class="errorlist">{{ job_form.skills_required.errors }}</span>
+							</div>
+						</div>
+						
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="form-group">
+								<label>{{ job_form.description.label_tag }}</label>
+								{{ job_form.description }}
+								<span class="errorlist">{{ job_form.description.errors }}</span>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-md-12 padd-top-10 text-center">
+							<input type="submit" value="submit" class="btn btn-m theme-btn full-width">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</form>
+<!-- ================ End Profile Settings ======================= --> {% endblock content %}

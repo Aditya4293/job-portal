@@ -1,0 +1,106 @@
+{% extends 'common.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ======================= Page Title ===================== -->
+<div class="page-title">
+	<div class="container">
+		<div class="page-caption">
+			<h2>Job Profile Settings</h2>
+			<p>
+				<a href="#" title="Home">Home</a>
+				<i class="ti-angle-double-right"></i>Job Profile Settings
+			</p>
+		</div>
+	</div>
+</div>
+<!-- ======================= End Page Title ===================== -->
+
+<!-- ================ Profile Settings ======================= -->
+
+	<section class="padd-top-80 padd-bot-80">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-3">
+					<div id="leftcol_item">
+						<div class="user_dashboard_pic">
+                            {% if not img %} 
+							<img alt="user photo" src="/img/user-profile.png">
+                            {% else %}
+                            <img alt="user photo" src="{{img}}">
+                            {% endif %}
+						</div>
+					</div>
+					<div class="dashboard_nav_item">
+						<ul>
+                            <li href="{% url 'Seeker:seeker_profile' %}">
+								<a href="{% url 'Seeker:seeker_profile' %}">
+									<i class="login-icon ti-user"></i> User Profile </a>
+							</li>
+							<li class="active">
+								<a href="{% url 'Seeker:seeker_job_profile' %}">
+									<i class="login-icon ti-bag"></i> Job Profile </a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="login-icon ti-dashboard"></i> Applied Jobs </a>
+							</li>
+							<li>
+								<a href="{% url 'Seeker:Seeker_set_password' %}">
+									<i class="login-icon ti-key"></i> Change Password </a>
+							</li>
+							<li>
+								<a href="{% url 'Seeker:seeker_logout' %}">
+									<i class="login-icon ti-power-off"></i> Logout </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+                                <center>
+                                {% if messages %} 
+                                {% for message in messages %} 
+                                    <span {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{message}}</span>
+                                {% endfor %} 
+                                <br>
+                                <br>
+                                {% endif %}
+                                </center>
+                                <div class="col-md-9">
+                                    <div class="profile_detail_block">
+                                        <form method="post" novalidate> {% csrf_token %}
+                                            {{skill.non_field_errors}}
+											<div class="detail-wrapper-header">
+												<center><h4>Add Skills</h4></center>
+											</div>
+                                            {% for i in skill %}
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>{{i.label_tag}}</label>
+                                                    {{i}}
+                                                    <span class="errorlist">{{ i.errors }}</span>
+                                                </div>
+                                            </div>
+                                            {% endfor%}
+
+                                            <div class="col-md-12 padd-top-10 text-center">
+                                                <input type="submit" value="submit" class="btn btn-m theme-btn full-width">
+                                            </div>
+                                        </form>
+
+                                            <div class="col-md-12 padd-top-20 text-center">
+                                            <a href="{% url 'Seeker:seeker_job_profile' %}" style="color: #fff; text-decoration: underline; background-color: #424242; padding: 10px 20px; border-radius: 5px;">Back to profile</a>
+                                            </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+			</div>
+		</div>
+	</section>
+
+{% endblock content %}

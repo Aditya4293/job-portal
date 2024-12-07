@@ -1,0 +1,167 @@
+{% extends 'common.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ======================= Start Banner ===================== -->
+<div class="utf_main_banner_area" style="background-image:url({% static 'img/imageho.jpg' %});  margin-top: 70px;" data-overlay="8">
+  <div class="container">
+    <div class="col-md-8 col-sm-10">
+      <div class="caption cl-white home_two_slid">
+        <h2>Find The Job That <br>Fits Your Life</h2>
+        
+      </div>
+      <form action="{% url 'Seeker:job_search' %}" method="GET">
+        <fieldset class="utf_home_form_one">
+          <div class="col-md-8 col-sm-8 padd-0">
+            <input type="text" class="form-control br-1" placeholder="Search Keywords..." name="q" required>
+          </div>
+          <div class="col-md-4 col-sm-4 padd-0 m-clear">
+            <button type="submit" class="btn theme-btn cl-white seub-btn">Search</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ======================= End Banner ===================== --> 
+
+<!-- ================= Job start ========================= -->
+
+<section class="padd-top-80 padd-bot-80">
+  <div class="container">
+      <ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
+          <li class="nav-item active">
+              <a class="nav-link" data-toggle="tab" href="#latest" role="tab"> Latest Jobs</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#recent" role="tab"> Recent Jobs</a>
+          </li>
+      </ul>
+      <div class="tab-content">
+          <div class="tab-pane fade in show active" id="latest" role="tabpanel">
+              <div class="row">
+                  <!-- Loop over latest jobs -->
+                  {% for job in jobs|slice:"10" %}
+                      <!-- Single Job -->
+                      <div class="col-md-3 col-sm-6">
+                          <div class="utf_grid_job_widget_area">
+                            <span class="job-type full-type">{{ job.created_at|date:"d/m/Y" }}</span>
+                              <div class="u-content">
+                                  <div class="avatar box-80">
+                                      <a href="{% url 'Seeker:seeker_viewjob' job.id %}">
+                                          <img class="img-responsive" src="{{job.user.provider_profile_model.avatar.url}}" alt="">
+                                      </a>
+                                  </div>
+                                  <h5>
+                                      <a href="{% url 'Seeker:seeker_viewjob' job.id %}">{{ job.title }}</a>
+                                  </h5>
+                                  <p class="text-muted">{{ job.location }}</p>
+                              </div>
+                              <div class="utf_apply_job_btn_item">
+                                  <a href="{% url 'Seeker:apply_job' job.id %}" class="btn job-browse-btn btn-radius br-light">Apply Now</a>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- End Single Job -->
+                  {% endfor %}
+              </div>
+          </div>
+          <div class="tab-pane fade" id="recent" role="tabpanel">
+              <div class="row">
+                  <!-- Loop over recent jobs -->
+                  {% for job in reversed_jobs %}
+                      <!-- Single Job -->
+                      <div class="col-md-3 col-sm-6">
+                          <div class="utf_grid_job_widget_area">
+                              <span class="job-type full-type">{{ job.created_at|date:"d/m/Y" }}
+                              </span>
+                              <div class="u-content">
+                                  <div class="avatar box-80">
+                                      <a href="{% url 'Seeker:seeker_viewjob' job.id %}">
+                                          <img class="img-responsive" src="{{job.user.provider_profile_model.avatar.url}}" alt="">
+                                      </a>
+                                  </div>
+                                  <h5>
+                                      <a href="{% url 'Seeker:seeker_viewjob' job.id %}">{{ job.title }}</a>
+                                  </h5>
+                                  <p class="text-muted">{{ job.location }}</p>
+                              </div>
+                              <div class="utf_apply_job_btn_item">
+                                  <a href="{% url 'Seeker:apply_job' job.id %}" class="btn job-browse-btn btn-radius br-light">Apply Now</a>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- End Single Job -->
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- ================= Category start ========================= -->
+<section class="utf_job_category_area">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="heading">
+          <h2>Job Categories</h2>  
+		  <p>Job Categories are an essential aspect of any job search. They help job seekers narrow down their search and find job listings that fit their skills and interests. At our platform, we provide a wide range of Job Categories, each with numerous job listings. Whether you're looking for a job in IT, Marketing, Healthcare, or any other industry, our Job Categories have got you covered.</p>	
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        {% with sorted_categories=job_categories.items %}
+        {% for category, count in sorted_categories %}
+          <div class="col-md-3 col-sm-6">
+            <a href="{% url 'Seeker:job_search' %}" title="">
+              <div class="utf_category_box_area">
+                <div class="utf_category_desc">
+                  <div class="utf_category_icon"> <i class="icon-bargraph" aria-hidden="true"></i> </div>
+                  <div class="category-detail utf_category_desc_text"> 
+                    <h4>{{ category }}</h4>
+                    <p>{{ count }} Jobs</p>  
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      {% endwith %}
+
+
+        <div class="col-md-12 mrg-top-20 text-center">
+          <a href="{% url 'Seeker:job_search' %}" class="btn theme-btn btn-m">View All Categories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter theme-bg" style="background-image:url({% static 'img/bg-new.png'%})">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="heading light">
+          <h2>Subscribe Our Newsletter!</h2>
+          <p>Subscribing to a newsletter is an excellent way to stay informed and up-to-date on the latest news and information related to your interests. Whether you're interested in the latest industry news, updates on your favorite products or services, or simply looking for tips and advice to improve your daily life, a newsletter can provide you with valuable information right in your inbox.</p>
+        </div>
+      </div>
+    </div>
+    <form action="{% url 'Seeker:newsletter' %}" method='get'>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
+        <div class="newsletter-box text-center">
+          <div class="input-group"> <span class="input-group-addon"><span class="ti-email theme-cl"></span></span>
+            <input type="text" class="form-control" name="newsletter_data" placeholder="Enter your Email..." required>
+          </div>
+          <input type="submit" class="btn theme-btn btn-radius btn-m" value="Subscribe"/>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
+</section>
+
+{% endblock content %}

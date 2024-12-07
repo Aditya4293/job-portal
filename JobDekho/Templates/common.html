@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="" lang="zxx">
+
+<!-- Mirrored from utouchdesign.com/themes/envato/escort/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Dec 2022 06:02:09 GMT -->
+<head>
+<meta name="author" content="">
+<meta name="description" content="">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Dekho</title>
+
+<!-- Favicon Icon -->
+<link rel="shortcut icon" href="{% static 'img/favicon.png' %}" />
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap-select.min.css' %}">
+<link href="{% static 'plugins/icons/css/icons.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/animate/animate.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/bootstrap/css/bootsnav.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'plugins/nice-select/css/nice-select.css' %}">
+<link href="{% static 'plugins/aos-master/aos.css' %}" rel="stylesheet">
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&amp;display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&amp;display=swap" rel="stylesheet"> 
+</head>
+<body class="utf_skin_area">
+<div class="page_preloader"></div>
+<!-- ======================= Start Navigation ===================== -->
+<nav class="navbar navbar-default navbar-mobile navbar-fixed-top navbar-white bootsnav">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+        <a class="navbar-brand" href="{% url 'Seeker:index' %}"> <img src="{% static 'img/logo.png' %}" class="logo logo-scrolled" alt=""> </a>
+    </div>
+    {% if not request.session.seeker %}
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav navbar-left" data-in="fadeInDown" data-out="fadeOutUp">
+        <li class="dropdown"> <a href="{% url 'Seeker:index' %}">Home</a> </li>
+        <li class="dropdown"> <a href="{% url 'Seeker:job_search' %}">Job Categories</a> </li>
+        <li class="dropdown"> <a href="{% url 'Seeker:aboutus' %}">About Us</a> </li>
+        <li class="dropdown"> <a href="{% url 'Seeker:contact' %}">Contact us</a> </li>
+    
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="br-right"><a class="btn-signup red-btn" href="{% url 'Seeker:seeker_login' %}"><i class="login-icon ti-user"></i>Login</a></li>
+        <li class="sign-up"><a class="btn-signup red-btn" href="{% url 'Provider:provider_reg' %}"><span class="ti-briefcase"></span>Provide the Job</a></li>
+      </ul>
+    </div>
+    {% else %}
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+        <li class="dropdown"> <a href="{% url 'Seeker:index' %}">Home</a> </li>
+        <li class="dropdown"> <a href="{% url 'Seeker:job_search' %}">Job Categories</a> </li>
+        <li class="dropdown"> <a href="{% url 'Seeker:aboutus' %}">About Us</a> </li>
+        <li class="dropdown"> <a href="{% url 'Seeker:contact' %}">Contact us</a> </li>
+        <li class="dropdown"> <a href="{% url 'Seeker:seeker_profile' %}">Setting</a> </li>
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</nav>
+<!-- ======================= End Navigation ===================== --> 
+
+
+
+
+
+
+
+
+
+
+
+{% block content %}{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+<!-- ================= footer start ========================= -->
+<footer class="footer">
+    <div class="container"> 
+      <div class="row">
+        <div class="col-md-3 col-sm-4">
+          <a href="{% url 'Seeker:index' %}"><img class="footer-logo" src="{% static 'img/logo.png' %}" alt=""></a>
+          <p>Job Dekho Job Provider is a comprehensive job search and recruitment platform that connects job seekers and companies worldwide. Our platform is designed to provide both employers and job seekers with the best job search and recruitment experience.</p>
+        </div>	
+        <div class="col-md-9 col-sm-8">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <h4>Job Categories</h4>
+              <ul>
+                <li><a href="{% url 'Seeker:search_cat' 24 %}"><i class="fa fa-angle-double-right"></i>Information Technology</a></li>
+                <li><a href="{% url 'Seeker:search_cat' 1 %}"><i class="fa fa-angle-double-right"></i>Accounting and Finance</a></li>
+                <li><a href="{% url 'Seeker:search_cat' 18 %}"><i class="fa fa-angle-double-right"></i>Fashion and Apparel</a></li>
+                <li><a href="{% url 'Seeker:search_cat' 10 %}"><i class="fa fa-angle-double-right"></i>Business and Management</a></li>
+                
+              </ul>
+            </div>
+          
+            <div class="col-md-3 col-sm-6">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="{% url 'Seeker:seeker_profile' %}"><i class="fa fa-angle-double-right"></i> My Account</a></li>
+                <li><a href="{% url 'Seeker:seeker_job_profile' %}"><i class="fa fa-angle-double-right"></i> Job Profile</a></li>
+                <li><a href="{% url 'Seeker:Seeker_set_password' %}"><i class="fa fa-angle-double-right"></i>Change Password</a></li>
+                <li><a href="{% url 'Seeker:job_search' %}"><i class="fa fa-angle-double-right"></i>Job Categories</a></li>
+                
+              </ul>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="{% url 'Seeker:seeker_login' %}"><i class="fa fa-angle-double-right"></i>Login</a></li>
+                <li><a href="{% url 'Seeker:aboutus' %}"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+                <li><a href="{% url 'Seeker:contact' %}"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+                <li><a href="{% url 'Seeker:Seeker_set_password' %}"><i class="fa fa-angle-double-right"></i>Change Password</a></li>
+                
+              </ul>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="{% url 'Provider:provider_reg' %}"><i class="fa fa-angle-double-right"></i>Registration</a></li>
+                <li><a href="{% url 'Provider:post_job' %}"><i class="fa fa-angle-double-right"></i>Post Jobs</a></li>
+                <li><a href="{% url 'Seeker:aboutus' %}"><i class="fa fa-angle-double-right"></i>About Us</a></li>
+                <li><a href="{% url 'Provider:managejobs' %}"><i class="fa fa-angle-double-right"></i>Manage Jobs</a></li>
+               
+              </ul>
+            </div>
+          </div>
+        </div>      
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="copyright text-center">
+            <p>Copyright © 2023 All Rights Reserved.</p>		  
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Signup Code -->
+  <div class="modal fade" id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" id="myModalLabel1">
+        <div class="modal-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs nav-advance theme-bg" role="tablist">
+            <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#employer" role="tab"> <i class="ti-user"></i> Job Seeker</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#candidate" role="tab"> <i class="ti-user"></i> Job Provider</a> </li>
+          </ul>
+          <!-- Nav tabs --> 
+          <!-- Tab panels -->
+          <div class="tab-content"> 
+            <!-- Employer Panel 1-->
+            <div class="tab-pane fade in show active" id="employer" role="tabpanel">
+              <form>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group"> <span class="custom-checkbox">
+                  <input type="checkbox" id="4">
+                  <label for="4"></label>
+                  Remember Me </span> <a href="#" title="Forget" class="fl-right">Forgot Password?</a> 
+                </div>
+                <div class="form-group text-center">
+                  <button type="button" class="btn theme-btn full-width btn-m">LogIn</button>
+                </div>
+              </form>
+              <div class="log-option"><span>OR</span></div>
+              <div class="row">
+                <div class="col-md-6"> <a href="#" title="" class="fb-log-btn log-btn"><i class="fa fa-facebook"></i> Facebook</a> </div>
+                <div class="col-md-6"> <a href="#" title="" class="gplus-log-btn log-btn"><i class="fa fa-google"></i> Google</a> </div>
+              </div>
+            </div>
+            <!--/.Panel 1--> 
+            
+            <!-- Candidate Panel 2-->
+            <div class="tab-pane fade" id="candidate" role="tabpanel">
+              <form>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group"> <span class="custom-checkbox">
+                  <input type="checkbox" id="44">
+                  <label for="44"></label>
+                  Remember Me </span> <a href="#" title="Forget" class="fl-right">Forgot Password?</a> 
+                </div>
+                <div class="form-group text-center">
+                  <button type="button" class="btn theme-btn full-width btn-m">LogIn</button>
+                </div>
+              </form>
+              <div class="log-option"><span>OR</span></div>
+              <div class="row">
+                <div class="col-md-6"> <a href="#" title="" class="fb-log-btn log-btn"><i class="fa fa-facebook"></i> Facebook</a> </div>
+                <div class="col-md-6"> <a href="#" title="" class="gplus-log-btn log-btn"><i class="fa fa-google"></i> Google</a> </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tab panels --> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Signup --> 
+  <div><a href="#" class="scrollup">Scroll</a></div>
+  
+  <!-- Jquery js--> 
+  <script src="{% static 'js/jquery.min.js' %}"></script> 
+  <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script> 
+  <script src="{% static 'plugins/bootstrap/js/bootsnav.js' %}"></script> 
+  <script src="{% static 'js/viewportchecker.js' %}"></script> 
+  <script src="{% static 'js/slick.js' %}"></script> 
+  <script src="{% static 'plugins/bootstrap/js/wysihtml5-0.3.0.js' %}"></script> 
+  <script src="{% static 'plugins/bootstrap/js/bootstrap-wysihtml5.js' %}"></script> 
+  <script src="{% static 'plugins/aos-master/aos.js' %}"></script> 
+  <script src="{% static 'plugins/nice-select/js/jquery.nice-select.min.js' %}"></script> 
+  <script src="{% static 'js/custom.js' %}"></script> 
+  <script>
+      $(window).load(function() {
+        $(".page_preloader").fadeOut("slow");;
+      });
+      AOS.init();
+  </script>
+  </body>
+  
+  <!-- Mirrored from utouchdesign.com/themes/envato/escort/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Dec 2022 06:03:31 GMT -->
+  </html>
+
+
+
+
+
+
+
+
+
+
+
+

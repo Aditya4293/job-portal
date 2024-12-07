@@ -1,0 +1,275 @@
+{% extends 'common_provider.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ======================= Page Title ===================== -->
+<div class="page-title">
+	<div class="container">
+		<div class="page-caption">
+			<h2>View Candidate</h2>
+			<p>
+				<a href="#" title="Home">Home</a>
+				<i class="ti-angle-double-right"></i>View Candidate
+			</p>
+		</div>
+	</div>
+</div>
+<!-- ======================= End Page Title ===================== -->
+
+<!-- ================ Profile Settings ======================= -->
+
+	<section class="padd-top-80 padd-bot-80">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-3">
+					<div id="leftcol_item">
+						<div class="user_dashboard_pic">
+                            {% if not img %} 
+							<img alt="user photo" src="/img/user-profile.png">
+                            {% else %}
+                            <img alt="user photo" src="{{img}}">
+                            {% endif %}
+						</div>
+					</div>
+					<div class="dashboard_nav_item">
+						<ul>
+                            <li >
+								<a href="{% url 'Provider:provider_profile' %}">
+									<i class="login-icon ti-user"></i> User Profile </a>
+							</li>
+
+							<li>
+								<a href="{% url 'Provider:post_job' %}">
+									<i class="login-icon ti-layout-cta-btn-right"></i> Post Jobs </a>
+							</li>
+							<li >
+								<a href="{% url 'Provider:managejobs' %}">
+									<i class="login-icon ti-menu-alt"></i> Manage Jobs </a>
+							</li>
+							<li class="active">
+								<a href="{% url 'Provider:all_applicants_list' %}">
+									<i class="login-icon fa fa-users"></i> Applied Applicants </a>
+							</li>
+							<li>
+								<a href="{% url 'Provider:provider_set_password' %}">
+									<i class="login-icon ti-key"></i> Change Password </a>
+							</li>
+							<li>
+								<a href="{% url 'Provider:provider_logout' %}">
+									<i class="login-icon ti-power-off"></i> Logout </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+ 
+                <div class="col-md-9">
+                	<div class="profile_detail_block" style="width:100% ;">
+                		<div class="row">
+                			<h3 style="text-align:center; margin-bottom: 0;">View Candidate</h3>
+                			<hr>
+                			<div class="container utf_manage_jobs_area" style="width: 100%;">
+                                <div class="detail-wrapper" style="padding: 10px 20px">
+                                    <form action="{% url 'Provider:update_service_decision' %}" method="POST"> {% csrf_token %}
+                                        <input type="hidden" name="request_id" value="{{ applicant.id }}">
+                                        <div class="text-center">
+                                            <button type="submit" name="job_decision" value="yes" class="btn btn-success {% if request.job_decision == 'yes' %}active{% endif %}" style="color: #fff; background-color: blue; padding: 10px 20px; border-radius: 5px;">Ask For the Interview</button>
+                                              <button type="submit" name="job_decision" value="no" class="btn btn-danger {% if request.job_decision == 'no' %}active{% endif %}" style="color: #fff; background-color: red; padding: 10px 20px; border-radius: 5px;">Reject User</button>
+                                        </div>
+                                    </form>
+                                </div>
+                				<div class="detail-wrapper">
+                					<div class="detail-wrapper-body">
+                						<div class="row">
+                							<div class="col-md-4 text-center user_profile_img">
+                								<img src="{{employee.seeker_profile_model.avatar.url}}" class="width-100" alt="" />
+                								<h4 class="meg-0">{{employee.seeker_profile_model.fname}} {{employee.seeker_profile_model.lname}}</h4>
+                								<span>{{employee.seeker_profile_model.area}} </span>
+                							</div>
+                							<div class="col-md-8 user_job_detail">
+                                                <div class="col-sm-12 mrg-bot-10">
+                                                    <i class="fa fa-child padd-r-10"></i>{{employee.seeker_profile_model.age}} Years Old
+                                                </div>
+                								<div class="col-sm-12 mrg-bot-10">
+                									<i class="fa fa-venus-mars padd-r-10"></i>{{employee.seeker_profile_model.gender}}
+                								</div>
+                								<div class="col-sm-12 mrg-bot-10">
+                									<i class="ti-mobile padd-r-10"></i>{{employee.seeker_profile_model.tel}}
+                								</div>
+                								<div class="col-sm-12 mrg-bot-10">
+                									<i class="ti-email padd-r-10"></i>{{employee.user.email}}
+                								</div>
+                								<div class="col-sm-12 mrg-bot-10">
+                									<i class="fa fa-address-card padd-r-10"></i>{{employee.seeker_profile_model.address}}, {{employee.seeker_profile_model.area}} 
+                								</div>
+                							</div>
+                						</div>
+                					</div>
+                				</div>
+                                <div class="detail-wrapper">
+                                    <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Resume</h4>
+                                    </div>
+                                    {% if resume %}
+                                        {% for i in resume %}
+                                        <div class="detail-wrapper-body">
+                                            <a href="{{i.resume.url}}" target="_blank" class="ps-2">{{i.resume}}</a>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <h5 class="detail-wrapper-body">{{employee.seeker_profile_model.fname}} doesn't have any resume</h5>
+                                    {% endif %}
+                                </div>
+                                <div class="detail-wrapper">
+                                    <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Headline</h4>
+                                    </div>
+                                    {% if headline %}
+                                        {% for i in headline %}
+                                        <div class="detail-wrapper-body">
+                                            <h5 class="ps-2 mt-2">{{i.headline}}</h5>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <h5 class="detail-wrapper-body">{{employee.seeker_profile_model.fname}} doesn't have any headline</h5>
+                                    {% endif %}
+                                </div>
+                                <div class="detail-wrapper">
+                                    <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Profile Summary</h4>
+                                    </div>
+                                    {% if summary %}
+                                        {% for i in summary %}
+                                        <div class="detail-wrapper-body">
+                                            <h5 class="ps-2 mt-2">{{i.summary}}</h5>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <h5 class="detail-wrapper-body">{{employee.seeker_profile_model.fname}} doesn't have any summary</h5>
+                                    {% endif %}
+                                </div>
+                                <div class="detail-wrapper">
+                                    <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Last Education</h4>
+                                    </div>
+                                    <div class="detail-wrapper-body">
+                                    {% if education %}
+                                    {% for i in education %}
+                                    <div class="edu-history info"> <i></i>
+                                        <div class="detail-info">
+                                            <h3>{{i.education}}</h3>
+                                            <i>{{i.university}} - {{i.passing_year}}</i>
+                                            <i>{{i.course_type}}</i> <span>{{i.course}} - <i>{{i.specialization}}</i></span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% else %}
+                                    <h5 class="ps-2">{{employee.seeker_profile_model.fname}} doesn't have any education</h5>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                                <div class="detail-wrapper">
+                                    <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Project</h4>
+                                    </div>
+                                    <div class="detail-wrapper-body">
+                                        <div class="detail-wrapper-body">
+                                            {% if project %}
+                                            {% for i in project %}
+                                            <div class="edu-history info"> <i></i>
+                                                <div class="detail-info">
+                                                    <h3>{{i.title}}</h3>
+                                                    <i>{{i.start_month}}/{{i.start_year}} to {{i.end_month}}/{{i.end_year}}</i>
+                                                    <i>Project url: <a href="{{i.url}}" class="ms-2 mt-1"> {{i.url}}</a></i>
+                                                    <i>Description: {{i.description}}</i>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            {% else %}
+                                            <h5 class="ps-2">{{employee.seeker_profile_model.fname}} doesn't have any project</h5>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detail-wrapper">
+                                    <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Certifications</h4>
+                                    </div>
+                                    <div class="detail-wrapper-body">
+                                        {% if certificate %}
+                                        {% for i in certificate %}
+                                        <div class="edu-history info"> <i></i>
+                                            <div class="detail-info">
+                                                <h3>{{i.name}}</h3>
+                                                <i>Issuing Organization: {{i.issuing_org}} | From: {{i.issue_month}}/{{i.issue_year}} to {{i.expiry_month}}/{{i.expiry_year}}</i>
+                                                <i>Credential ID: {{i.credential_id}}</i>
+                                                <i>Credential url: <a href="{{i.credential_url}}" class="ms-2 mt-1">{{i.credential_url}}</a></i>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        {% else %}
+                                        <h5 class="ps-2">{{employee.seeker_profile_model.fname}} doesn't have any certificate</h5>
+                                            {% endif %}
+                                    </div>
+                                    </div>
+                                    <div class="detail-wrapper">
+                                        <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                            <h4 style="margin: 0;">Skills</h4>
+                                        </div>
+                                        <div class="detail-wrapper-body">
+                                            {% if skills %}
+                                            {% for i in skills %}
+                                            <div class="edu-history info"> <i></i>
+                                                <div class="detail-info">
+                                                    <p> {{i}} </p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            {% else %}
+                                            <h5 class="ps-2">{{employee.seeker_profile_model.fname}} doesn't have any skills</h5>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                <div class="detail-wrapper">
+                                    <div class="detail-wrapper-header" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Social Profiles</h4>
+                                    </div>
+                                    <div class="detail-wrapper-body">
+                                        {% if social %}
+                                        {% for i in social %}
+                                        <div class="edu-history info"> <i></i>
+                                            <div class="detail-info">
+                                                <h3>{{i.profile_name}}</h3>
+                                                <i>Profile url: <a href="{{i.profile_url}}" class="ms-2 mt-1">{{i.profile_url}}</a></i>
+                                                <i>Description: {{i.profile_des}}</i>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        {% else %}
+                                        <h5 class="ps-2">{{employee.seeker_profile_model.fname}} doesn't have any socials</h5>
+                                                {% endif %}
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="detail-wrapper" style="padding: 10px 20px">
+                                    <div class="text-center">
+                                        <a href="#" style="color: #fff; background-color: blue; padding: 10px 20px; border-radius: 5px;">Ask For the Interview</a>
+                                        <a href="#" style="color: #fff; width: 100%; background-color: red; padding: 10px 20px; border-radius: 5px;">Reject User</a>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{% url 'Provider:all_applicants_list' %}" style="color: #fff; background-color: #424242; padding: 10px 20px; border-radius: 5px;">Back to Applied Applicants</a>
+                                    </div>
+                                </div>
+                			</div>
+                		</div>
+                		<!-- End Row -->
+                	</div>
+                	<div class="clearfix"></div>
+                </div>
+			</div>
+		</div>
+	</section>
+
+{% endblock content %}

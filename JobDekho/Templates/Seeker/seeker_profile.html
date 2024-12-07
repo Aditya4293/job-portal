@@ -1,0 +1,157 @@
+{% extends 'common.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ======================= Page Title ===================== -->
+<div class="page-title">
+	<div class="container">
+		<div class="page-caption">
+			<h2>Job Seeker Profile Settings</h2>
+			<p>
+				<a href="#" title="Home">Home</a>
+				<i class="ti-angle-double-right"></i>Job Seeker Profile Settings
+			</p>
+		</div>
+	</div>
+</div>
+<!-- ======================= End Page Title ===================== -->
+
+<!-- ================ Profile Settings ======================= -->
+<form method="POST" enctype="multipart/form-data" novalidate> {% csrf_token %} 
+    {{ seeker_user_form.non_field_errors }}
+	{{ seeker_profile_form.non_field_errors }}
+	<section class="padd-top-80 padd-bot-80">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-3">
+					<div id="leftcol_item">
+						<div class="user_dashboard_pic">
+                            {% if not img %} 
+							<img alt="user photo" src="/img/user-profile.png">
+                            {% else %}
+                            <img alt="user photo" src="{{img}}">
+                            {% endif %}
+							<span>{{seeker_profile_form.avatar}}</span>
+						</div>
+					</div>
+                   
+					<div class="dashboard_nav_item">
+						<ul>
+                            <li class="active">
+								<a href="#">
+									<i class="login-icon ti-user"></i> User Profile </a>
+							</li>
+							<li>
+								<a href="{% url 'Seeker:seeker_job_profile' %}">
+									<i class="login-icon ti-bag"></i> Job Profile </a>
+							</li>
+							<li>
+								<a href="{% url 'Seeker:applied_jobs' %}">
+									<i class="login-icon ti-dashboard"></i> Applied Jobs </a>
+							</li>
+							<li>
+								<a href="{% url 'Seeker:Seeker_set_password' %}">
+									<i class="login-icon ti-key"></i> Change Password </a>
+							</li>
+							<li>
+								<a href="{% url 'Seeker:seeker_logout' %}">
+									<i class="login-icon ti-power-off"></i> Logout </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+                <center>
+                {% if messages %} 
+                {% for message in messages %} 
+                    <span {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{message}}</span>
+                {% endfor %} 
+                <br>
+                <br>
+                {% endif %}
+                </center>
+                <div class="col-md-9">
+                    <div class="profile_detail_block">
+
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{seeker_user_form.username.label_tag}}</label>
+								{{seeker_user_form.username}}
+                                <span class="errorlist">{{seeker_user_form.username.errors}}</span>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="form-group">
+								<label>{{seeker_user_form.email.label_tag}}</label>
+								{{seeker_user_form.email}}
+                                <span class="errorlist">{{seeker_user_form.email.errors}}</span>
+							</div>
+						</div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>{{ seeker_profile_form.fname.label_tag }}</label>
+                                {{ seeker_profile_form.fname }}
+                                <span class="errorlist">{{ seeker_profile_form.fname.errors }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>{{ seeker_profile_form.lname.label_tag }}</label>
+                                {{ seeker_profile_form.lname }}
+                                <span class="errorlist">{{ seeker_profile_form.lname.errors }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>{{ seeker_profile_form.age.label_tag }}</label>
+                                {{ seeker_profile_form.age }}
+                                <span class="errorlist">{{ seeker_profile_form.age.errors }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label>{{ seeker_profile_form.tel.label_tag }}</label>
+                                {{ seeker_profile_form.tel }}
+                                <span class="errorlist">{{ seeker_profile_form.tel.errors }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-sm-5 col-xs-6">
+                            <div class="form-group">
+                                <label>{{ seeker_profile_form.gender.label_tag }}</label><br>
+                                {{ seeker_profile_form.gender }}
+                                <span class="errorlist">{{ seeker_profile_form.gender.errors }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-5 col-xs-6">
+                            <div class="form-group">
+                                <label>{{ seeker_profile_form.area.label_tag }}</label><br>
+                                {{ seeker_profile_form.area }}
+                                <span class="errorlist">{{ seeker_profile_form.area.errors }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>{{ seeker_profile_form.address.label_tag }}</label>
+                                {{ seeker_profile_form.address }}
+                                <span class="errorlist">{{ seeker_profile_form.address.errors }}</span>
+                            </div>
+                        </div>
+
+						<div class="clearfix"></div>
+						<div class="col-md-12 padd-top-10 text-center">
+							<input type="submit" value="submit" class="btn btn-m theme-btn full-width">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</form>
+<!-- ================ End Profile Settings ======================= -->
+{% endblock content %}

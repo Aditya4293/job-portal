@@ -1,0 +1,142 @@
+{% extends 'common.html' %} {% load static %} {% block content %}
+<!-- ======================= Page Title ===================== -->
+<div class="page-title">
+	<div class="container">
+		<div class="page-caption">
+			<h2>Browse Jobs</h2>
+			<p>
+				<a href="#" title="Home">Home</a>
+				<i class="ti-angle-double-right"></i> Browse Jobs
+			</p>
+		</div>
+	</div>
+</div>
+<!-- ======================= End Page Title ===================== -->
+<!-- ====================== Start Job Detail 2 ================ -->
+<section class="padd-top-80 padd-bot-80">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 col-sm-5">
+				<div class="widget-boxed padd-bot-0">
+					<div class="widget-boxed-body">
+						<div class="search_widget_job">
+							<h4 style="text-align:center">Search Jobs</h4>
+							<form action="{% url 'Seeker:job_search' %}" method="GET">
+								<div class="field_w_search">
+									<input type="text" class="form-control br-1" placeholder="Search Keywords..." name="q" required>
+								</div>
+								<div class="field_w_search" style="text-align:center">
+									<button type="submit" class="btn theme-btn cl-white seub-btn">Search</button>
+									<br>
+									<br>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="widget-boxed padd-bot-0">
+					<div class="widget-boxed-header br-0">
+						<h4>Popular Jobs Categories</h4>
+					</div>
+					<div class="widget-boxed-body">
+						<div class="side-list no-border" style="max-height: 275px; overflow-y: scroll;">
+							<ul> {% for category in job_categories %} <li>
+									<a href="{% url 'Seeker:search_cat' category.id %}">{{ category.name }}</a>
+									<span class="pull-right">{{ category.job_count }}</span>
+								</li> {% endfor %} </ul>
+						</div>
+					</div>
+				</div>
+        <div class="widget-boxed padd-bot-0">
+					<div class="widget-boxed-header br-0">
+						<h4>States and Cities</h4>
+					</div>
+					<div class="widget-boxed-body">
+            <div class="side-list no-border" style="max-height: 275px; overflow-y: scroll;">
+                <ul>
+                    {% for category in cities %}
+                    <li>
+                        <a href="{% url 'Seeker:search_cat_city' category.id %}">{{ category }}</a>
+                        <span class="pull-right">{{ category.job_count }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+				</div>
+			</div>
+			<!-- Start Job List -->
+			<div class="col-md-9 col-sm-7">
+				<!-- Single Verticle job --> {% for i in page_obj %} <div class="job-verticle-list">
+					<div class="vertical-job-card">
+						<div class="vertical-job-header">
+							<div class="vrt-job-cmp-logo">
+								<a href="{% url 'Seeker:seeker_viewjob' i.id %}">
+									<img src={{i.user.provider_profile_model.avatar.url}} class="img-responsive" alt="" />
+								</a>
+							</div>
+							<h4>
+								<a href="{% url 'Seeker:seeker_viewjob' i.id %}">{{i.title|upper}}</a>
+							</h4>
+							<span class="com-tagline">{{i.category}}</span>
+							<span class="pull-right vacancy-no">No. <span class="v-count">{{i.id}}</span>
+							</span>
+						</div>
+						<div class="vertical-job-body">
+							<div class="row">
+								<div class="col-md-9 col-sm-12 col-xs-12">
+									<ul class="can-skils">
+										<li>
+											<strong>Company Name: </strong>{{i.user.provider_profile_model.c_name}}
+										</li>
+										<li>
+											<strong>Salary: </strong>{{i.salary_min}} - {{i.salary_max}} ₹/Month
+										</li>
+										<li>
+											<strong>Experience: </strong>{{i.experience_years}}
+										</li>
+										<li>
+											<strong>Location: </strong>{{i.location}}
+										</li>
+									</ul>
+								</div>
+								<div class="col-md-3 col-sm-12 col-xs-12">
+									<div class="vrt-job-act">
+										<a href="{% url 'Seeker:apply_job' i.id %}" class="btn-job theme-btn job-apply">Apply Now</a>
+										<a href="{% url 'Seeker:seeker_viewjob' i.id %}" title="" class="btn-job light-gray-btn">View Job </a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> {% endfor %} <div class="clearfix"></div> {% if page_obj %} <div class="utf_flexbox_area padd-0">
+					<ul class="pagination"> {% if page_obj.has_previous %} <li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" aria-label="Previous">
+								<span aria-hidden="true">«</span>
+								<span class="sr-only">Previous</span>
+							</a>
+						</li> {% else %} <li class="page-item disabled">
+							<span class="page-link" aria-hidden="true">«</span>
+							<span class="sr-only">Previous</span>
+						</li> {% endif %} {% for num in page_obj.paginator.page_range %} {% if page_obj.number == num %} <li class="page-item active">
+							<span class="page-link">{{ num }}
+								<span class="sr-only">(current)</span>
+							</span>
+						</li> {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
+							<a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">{{ num }}</a>
+						</li> {% endif %} {% endfor %} {% if page_obj.has_next %} <li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" aria-label="Next">
+								<span aria-hidden="true">»</span>
+								<span class="sr-only">Next</span>
+							</a>
+						</li> {% else %} <li class="page-item disabled">
+							<span class="page-link" aria-hidden="true">»</span>
+							<span class="sr-only">Next</span>
+						</li> {% endif %} </ul>
+				</div>
+			</div> {% else %} <h2 style="text-align:center"> NO Job FOUND </h2> {% endif %}
+		</div>
+		<!-- End Row -->
+	</div>
+</section>
+<!-- ====================== End Job Detail 2 ================ --> {% endblock content %}
